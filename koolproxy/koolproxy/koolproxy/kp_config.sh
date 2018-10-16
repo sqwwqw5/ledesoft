@@ -69,7 +69,7 @@ start_koolproxy(){
 		[ "$koolproxy_base_mode" == "2" ] && echo_date 选择【黑名单模式】
 		[ "$koolproxy_video_rules" == "1" -a "koolproxy_oline_rules" == "0" -a "$koolproxy_easylist_rules" == "0" -a "$koolproxy_abx_rules" == "0" -a "$koolproxy_fanboy_rules" == "0" ] && echo_date 选择【视频模式】
 	fi
-	cd $KP_DIR && koolproxy -d --ttl 188 --ttlport 3001
+	cd $KP_DIR && koolproxy -d --ttl 188 --ttlport 3001 --ipv6
 }
 
 stop_koolproxy(){
@@ -180,15 +180,38 @@ creat_ipset(){
 	cat $KP_DIR/data/rules/koolproxy.txt $KP_DIR/data/rules/daily.txt $KP_DIR/data/rules/user.txt | grep -Eo "(.\w+\:[1-9][0-9]{1,4})/" | grep -Eo "([0-9]{1,5})" | sort -un | sed -e '$a\80' -e '$a\443' | sed -e "s/^/-A kp_full_port &/g" -e "1 i\-N kp_full_port bitmap:port range 0-65535 " | ipset -R -!
 }
 
+gen_special_ip() {
+	cat <<-EOF | grep -E "^([0-9]{1,3}\.){3}[0-9]{1,3}"
+		0.0.0.0/8
+		10.0.0.0/8
+		100.64.0.0/10
+		127.0.0.0/8
+		169.254.0.0/16
+		172.16.0.0/12
+		192.0.0.0/24
+		192.0.2.0/24
+		192.31.196.0/24
+		192.52.193.0/24
+		192.88.99.0/24
+		192.168.0.0/16
+		192.175.48.0/24
+		198.18.0.0/15
+		198.51.100.0/24
+		203.0.113.0/24
+		224.0.0.0/4
+		240.0.0.0/4
+		255.255.255.255
+EOF
+}
+
 add_white_black_ip(){
 	echo_date 添加ipset名单
-	ip_lan="0.0.0.0/8 10.0.0.0/8 100.64.0.0/10 127.0.0.0/8 169.254.0.0/16 172.16.0.0/12 192.168.0.0/16 224.0.0.0/4 240.0.0.0/4"
-	for ip in $ip_lan
-	do
-		ipset -A white_kp_list $ip >/dev/null 2>&1
-
-	done
+	ipset -! restore <<-EOF || return 1
+		create white_kp_list hash:net hashsize 64
+		$(gen_special_ip | sed -e "s/^/add white_kp_list /")
+EOF
 	ipset -A black_koolproxy 110.110.110.110 >/dev/null 2>&1
+	return 0
 }
 
 get_mode_name() {
