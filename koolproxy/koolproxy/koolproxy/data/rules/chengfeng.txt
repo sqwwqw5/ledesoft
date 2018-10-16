@@ -1,6 +1,6 @@
 ﻿[Adblock Plus 2.0]
 ! title: 乘风 广告过滤规则
-! Version: 2018-10-07 22:19:12
+! Version: 2018-10-15 00:37:26
 ! Expires: 2 days
 ! Homepage: http://bbs.kafan.cn/thread-1866845-1-1.html
 |http://js$xmlhttprequest,third-party
@@ -559,12 +559,10 @@ baike.com###right_ad_div
 bing.com##li.b_ad
 bitauto.com##.ad-tag-box,ins,body>div.container[style^=margin-top]
 ||bitautoimg.com/ResourceFiles/$image,object
-www.cnbeta.com##.cbv,div.tac~*,div.tac,#upcoming_box
-||static.cnbetacdn.com/frontend/vipics/$image
-||duomai.com/
+cnbeta.com##.cbv,#artibody~*,#upcoming_box
+||duomai.com/$third-party
 ||taboola.com/
-||static.cnbetacdn.com/$script
-||cnbeta.com/js/pages/$subdocument
+||static.cnbetacdn.com/frontend/vipics/$image
 ||china.com.cn/2016ads/$subdocument
 chinanews.com##div.advert_nav,#news_top_advert,#qizhi_div980,#zhengwenvideo~*
 ||afp.chinanews.com
@@ -633,7 +631,7 @@ www.v2ex.com##.sidebar_units,.sidebar_compliance
 bbs.xmfish.com##div[id^=adm_show_]
 ||www.you85.com/ling/$script
 ||zchot.com/images/jiaoyou
-www.zhihu.com##.Banner.Card,.shameimaru-section
+zhihu.com##.Banner.Card,.shameimaru-section
 ||www.zhujiceping.com/F/$image
 ||www.zhujiceping.com/wp-content/uploads/$script
 @@||www.zimuku.net/$script
@@ -666,30 +664,22 @@ yatu.tv###loadimg,#daohang
 ||com/pic/fgr/$script,object-subrequest
 ||www.youtube.com/annotations_invideo?$xmlhttprequest
 ||s.youtube.com/api/stats/
-||ya1.dwstatic.com/201*.flv^$object-subrequest,domain=video.duowan.com
 ||6rooms.com/$image,domain=~6.cn
-||www.92miaopai.com/abc/*.gif$image
-||www.99miaopai.com/abc/*.gif$image
-||atiws.aipai.com/
-||qs.lagowang.com^$object-subrequest
-||weplay.cn/crossdomain.xml$object-subrequest
-aipai.com##canvas~*
-||v.bumimi.com/money/$script
-||www.bumimi.com/member/index/mini/
+
 acfun.cn###ad-comment,#ad-player-view
 |http://www.acfun.cn/adnew.aspx
 ||www.hao123.com/erji/hao123/$object-subrequest
 ||imall.cctv.com/$subdocument
 ||bjcathay.com/
+||www.dililitv.com/wp-author/tga/760_90.php?ad=$script
 ||pub.funshion.com
+www.halihali.me##.tuiguang,.guolewan
 pptv.com##div[id^=afp_],div[id$=-afp],#video-download-game
 ||synacast.com
 ||de.as.pptv.com^
 ||g.pptv.com/game/$subdocument
 ||wsacdn1.miaopai.com/upload-pic/*.jpg|
 ||log1.17173.com/
-||cpm.cm.kankan.com/
-||distf.kankan.com/
 |http://img.kankan.xunlei.com/*.gif|
 |http://misc.t.kankan.com/level_demo/iframe/$subdocument
 |http://static.hd.baofeng.com/script/baidu.js
@@ -1408,3 +1398,4 @@ yesky.com##div#bdadv.bd_adv,div.wth200 > div.baidu,div.ad190
 ||crl.microsoft.com
 ||rad.microsoft.com
 ||watson.microsoft.com
+@@||b0.upaiyun.com

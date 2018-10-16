@@ -1,9 +1,9 @@
 {
-"version":"3.8.4.1",
-"md5":"511c73c1edcaae9112cc6c9b5be50846",
+"version":"3.8.4.2",
+"md5":"f26bf4ea4b6ce55cee710097b62f2bef",
 "home_url":"Module_koolproxy.asp",
 "title":"koolproxy",
 "description":"听说KP和软路由更搭哦~",
-"changelog":"优化iptables",
-"build_date":"2018-10-14_00:38:23"
+"changelog":"优化ipset",
+"build_date":"2018-10-16_20:46:57"
 }

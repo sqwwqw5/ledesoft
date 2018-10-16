@@ -503,15 +503,15 @@
             "version": "0.2"
         }, 
         {
-            "build_date": "2018-10-14_00:38:23", 
-            "changelog": "优化iptables", 
+            "build_date": "2018-10-16_20:46:57", 
+            "changelog": "优化ipset", 
             "description": "听说KP和软路由更搭哦~", 
             "home_url": "Module_koolproxy.asp", 
-            "md5": "511c73c1edcaae9112cc6c9b5be50846", 
+            "md5": "f26bf4ea4b6ce55cee710097b62f2bef", 
             "name": "koolproxy", 
             "tar_url": "koolproxy/koolproxy.tar.gz", 
             "title": "koolproxy", 
-            "version": "3.8.4.1"
+            "version": "3.8.4.2"
         }, 
         {
             "build_date": "2017-10-09_22:23:58", 
