@@ -31,4 +31,5 @@ tunnel
 /bbr/build
 /nat1/build
 /autocheckin/build
+/bridge/build
 /test
