@@ -1110,9 +1110,9 @@ add_white_black_ip(){
 	# black/white ip/cidr
 	ipset -! restore <<-EOF
 		create black_list hash:net hashsize 64
-		create white_list hash:net hashsize 64		
+		create white_list hash:net hashsize 64
 		$(gen_tg_ip | sed -e "s/^/add black_list /")
-		$(gen_special_ip | sed -e "s/^/add white_list /")		
+		$(gen_special_ip | sed -e "s/^/add white_list /")
 EOF
 	if [ ! -z $ss_wan_black_ip ];then
 		ss_wan_black_ip=`dbus get ss_wan_black_ip|base64_decode|sed '/\#/d'`
