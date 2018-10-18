@@ -9,7 +9,6 @@ LOCK_FILE=/var/lock/koolgame.lock
 LOG_FILE=/tmp/upload/koolgame_log.txt
 IFIP=`echo $koolgame_basic_server|grep -E "([0-9]{1,3}[\.]){3}[0-9]{1,3}|:"`
 mkdir -p /koolshare/configs
-
 ISP_DNS1=`cat /tmp/resolv.conf.auto|cut -d " " -f 2|grep -v 0.0.0.0|grep -v 127.0.0.1|sed -n 2p`
 ISP_DNS2=`cat /tmp/resolv.conf.auto|cut -d " " -f 2|grep -v 0.0.0.0|grep -v 127.0.0.1|sed -n 3p`
 # dns for china
@@ -250,7 +249,8 @@ start_koolgame(){
 flush_nat(){
 	echo_date 尝试先清除已存在的iptables规则，防止重复添加
 	# flush rules and set if any
-	iptables -t nat -F OUTPUT >/dev/null 2>&1	
+	iptables -t nat -D OUTPUT -j KOOLGAME > /dev/null 2>&1
+	iptables -t nat -D OUTPUT -p tcp -m set --match-set router dst -j REDIRECT --to-ports 3333 > /dev/null 2>&1
 	ip_nat_exist=`iptables -t nat -L PREROUTING | grep -c KOOLGAME`
 	ip_mangle_exist=`iptables -t mangle -L PREROUTING | grep -c KOOLGAME`
 	if [ -n "$ip_nat_exist" ]; then
@@ -275,7 +275,7 @@ flush_nat(){
 	ss_chromecast=`dbus get ss_basic_chromecast`
 	ss_enable=`iptables -t nat -L SHADOWSOCKS 2>/dev/null |wc -l`
 	chromecast_nu=`iptables -t nat -L PREROUTING -v -n --line-numbers|grep "dpt:53"|awk '{print $1}'`
-	if [ `dbus get koolproxy_enable` -ne 1 ]; then
+	if [ `dbus get koolproxy_enable` == "1" ]; then
 		[ -n "$chromecast_nu" ] && iptables -t nat -D PREROUTING $chromecast_nu >/dev/null 2>&1
 	else
 		if [ "$ss_chromecast" == "0" ] || [ "$ss_enable" -eq 0 ]; then
@@ -310,20 +310,67 @@ flush_nat(){
 # creat ipset rules
 creat_ipset(){
 	echo_date 创建ipset名单
-	ipset -! create white_list nethash && ipset flush white_list
-	ipset -! create black_list nethash && ipset flush black_list
 	ipset -! create router nethash && ipset flush router
 	ipset -! create chnroute nethash && ipset flush chnroute
 	sed -e "s/^/add chnroute &/g" $KSROOT/configs/koolgame/chnroute.txt | awk '{print $0} END{print "COMMIT"}' | ipset -R
 }
 
+gen_special_ip() {
+	[ ! -z "$koolgame_basic_server_ip" ] && SERVER_IP=$koolgame_basic_server_ip || SERVER_IP=""
+	cat <<-EOF
+		0.0.0.0/8
+		10.0.0.0/8
+		100.64.0.0/10
+		127.0.0.0/8
+		169.254.0.0/16
+		172.16.0.0/12
+		192.0.0.0/24
+		192.0.2.0/24
+		192.31.196.0/24
+		192.52.193.0/24
+		192.88.99.0/24
+		192.168.0.0/16
+		192.175.48.0/24
+		198.18.0.0/15
+		198.51.100.0/24
+		203.0.113.0/24
+		224.0.0.0/4
+		240.0.0.0/4
+		255.255.255.255
+		223.5.5.5
+		223.6.6.6
+		114.114.114.114
+		114.114.115.115
+		1.2.4.8
+		210.2.4.8
+		112.124.47.27
+		114.215.126.16
+		180.76.76.76
+		119.29.29.29
+		$ISP_DNS1
+		$ISP_DNS2
+		$SERVER_IP
+EOF
+}
+
+gen_tg_ip() {
+	cat <<-EOF
+		149.154.0.0/16
+		91.108.4.0/22
+		91.108.56.0/24
+		109.239.140.0/24
+		67.198.55.0/24
+EOF
+}
+
 add_white_black_ip(){
-	# black ip/cidr
-	ip_tg="149.154.0.0/16 91.108.4.0/22 91.108.56.0/24 109.239.140.0/24 67.198.55.0/24"
-	for ip in $ip_tg
-	do
-		ipset -! add black_list $ip >/dev/null 2>&1
-	done
+	# black/white ip/cidr
+	ipset -! restore <<-EOF
+		create black_list hash:net hashsize 64
+		create white_list hash:net hashsize 64		
+		$(gen_tg_ip | sed -e "s/^/add black_list /")
+		$(gen_special_ip | sed -e "s/^/add white_list /")		
+EOF
 	
 	if [ ! -z $koolgame_wan_black_ip ];then
 		koolgame_wan_black_ip=`dbus get koolgame_wan_black_ip|base64_decode|sed '/\#/d'`
@@ -333,16 +380,6 @@ add_white_black_ip(){
 			ipset -! add black_list $ip >/dev/null 2>&1
 		done
 	fi
-	
-	# white ip/cidr
-	#ip1=$(nvram get wan0_ipaddr | cut -d"." -f1,2)
-	ip1=`cat /etc/config/pppoe|grep localip | awk '{print $4}'| cut -d"." -f1,2`
-	[ ! -z "$koolgame_basic_server_ip" ] && SERVER_IP=$koolgame_basic_server_ip || SERVER_IP=""
-	ip_lan="0.0.0.0/8 10.0.0.0/8 100.64.0.0/10 127.0.0.0/8 169.254.0.0/16 172.16.0.0/12 192.168.0.0/16 224.0.0.0/4 240.0.0.0/4 $ip1.0.0/16 $SERVER_IP 223.5.5.5 223.6.6.6 114.114.114.114 114.114.115.115 1.2.4.8 210.2.4.8 112.124.47.27 114.215.126.16 180.76.76.76 119.29.29.29 $ISP_DNS1 $ISP_DNS2"
-	for ip in $ip_lan
-	do
-		ipset -! add white_list $ip >/dev/null 2>&1
-	done
 	
 	if [ ! -z $koolgame_wan_white_ip ];then
 		koolgame_wan_white_ip=`echo $koolgame_wan_white_ip|base64_decode|sed '/\#/d'`
@@ -438,12 +475,6 @@ apply_nat_rules(){
 	#load_tproxy
 	ip rule add fwmark 0x07 table 310 pref 789
 	ip route add local 0.0.0.0/0 dev lo table 310
-	# 创建游戏模式udp rule
-	iptables -t mangle -N KOOLGAME
-	# IP/cidr/白域名 白名单控制（不走koolgame）
-	iptables -t mangle -A KOOLGAME -p udp -m set --match-set white_list dst -j RETURN
-	# 创建游戏模式udp rule
-	iptables -t mangle -N KOOLGAME_GAM
 	# IP/CIDR/域名 黑名单控制（走koolgame）
 	iptables -t mangle -A KOOLGAME_GAM -p udp -m set --match-set black_list dst -j TPROXY --on-port 3333 --tproxy-mark 0x07
 	# cidr黑名单控制-chnroute（走koolgame）
