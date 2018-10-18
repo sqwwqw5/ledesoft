@@ -13,7 +13,6 @@ DNS_PORT=7913
 CONFIG_FILE=$KSROOT/ss/ss.json
 game_on=`dbus list ss_acl_mode|cut -d "=" -f 2 | grep 3`
 [ -n "$game_on" ] || [ "$ss_basic_mode" == "3" ] && mangle=1
-#lan_ipaddr=`awk "/config interface 'lan'/,/^$/ {print $1}" /etc/config/network | grep ipaddr |awk '{print $3}' |sed "s/'//g"`
 lan_ipaddr=`uci get network.lan.ipaddr`
 lan_ipaddr_prefix=`uci get network.lan.ipaddr`
 LOCK_FILE=/var/lock/koolss.lock
@@ -1002,7 +1001,8 @@ start_ss_redir(){
 flush_nat(){
 	echo_date 尝试先清除已存在的iptables规则，防止重复添加
 	# flush iptables rules
-	iptables -t nat -F OUTPUT > /dev/null 2>&1
+	iptables -t nat -D OUTPUT -j SHADOWSOCKS > /dev/null 2>&1
+	iptables -t nat -D OUTPUT -p tcp -m set --match-set router dst -j REDIRECT --to-ports 3333 > /dev/null 2>&1
 	nat_indexs=`iptables -nvL PREROUTING -t nat |sed 1,2d | sed -n '/SHADOWSOCKS/='|sort -r`
 	for nat_index in $nat_indexs
 	do
@@ -1022,7 +1022,7 @@ flush_nat(){
 	iptables -t mangle -F SHADOWSOCKS_GLO > /dev/null 2>&1 && iptables -t mangle -X SHADOWSOCKS_GLO > /dev/null 2>&1
 
 	chromecast_nu=`iptables -t nat -L PREROUTING -v -n --line-numbers|grep "dpt:53"|awk '{print $1}'`
-	[ `dbus get koolproxy_enable` -ne 1 ] && iptables -t nat -D PREROUTING $chromecast_nu >/dev/null 2>&1
+	[ `dbus get koolproxy_enable` == "1" ] && iptables -t nat -D PREROUTING $chromecast_nu >/dev/null 2>&1
 
 	#flush_ipset
 	echo_date 先清空已存在的ipset名单，防止重复添加
@@ -1052,22 +1052,68 @@ flush_nat(){
 # creat ipset rules
 creat_ipset(){
 	echo_date 创建ipset名单
-	ipset -! create white_list nethash && ipset flush white_list
-	ipset -! create black_list nethash && ipset flush black_list
 	ipset -! create gfwlist nethash && ipset flush gfwlist
 	ipset -! create router nethash && ipset flush router
 	ipset -! create chnroute nethash && ipset flush chnroute
 	sed -e "s/^/add chnroute &/g" $KSROOT/ss/rules/chnroute.txt | awk '{print $0} END{print "COMMIT"}' | ipset -R
 }
 
+gen_special_ip() {
+	[ ! -z "$ss_basic_server_ip" ] && SERVER_IP=$ss_basic_server_ip || SERVER_IP=""
+	cat <<-EOF
+		0.0.0.0/8
+		10.0.0.0/8
+		100.64.0.0/10
+		127.0.0.0/8
+		169.254.0.0/16
+		172.16.0.0/12
+		192.0.0.0/24
+		192.0.2.0/24
+		192.31.196.0/24
+		192.52.193.0/24
+		192.88.99.0/24
+		192.168.0.0/16
+		192.175.48.0/24
+		198.18.0.0/15
+		198.51.100.0/24
+		203.0.113.0/24
+		224.0.0.0/4
+		240.0.0.0/4
+		255.255.255.255
+		223.5.5.5
+		223.6.6.6
+		114.114.114.114
+		114.114.115.115
+		1.2.4.8
+		210.2.4.8
+		112.124.47.27
+		114.215.126.16
+		180.76.76.76
+		119.29.29.29
+		$ISP_DNS1
+		$ISP_DNS2
+		$SERVER_IP
+EOF
+}
+
+gen_tg_ip() {
+	cat <<-EOF
+		149.154.0.0/16
+		91.108.4.0/22
+		91.108.56.0/24
+		109.239.140.0/24
+		67.198.55.0/24
+EOF
+}
+
 add_white_black_ip(){
-	# black ip/cidr
-	ip_tg="149.154.0.0/16 91.108.4.0/22 91.108.56.0/24 109.239.140.0/24 67.198.55.0/24"
-	for ip in $ip_tg
-	do
-		ipset -! add black_list $ip >/dev/null 2>&1
-	done
-	
+	# black/white ip/cidr
+	ipset -! restore <<-EOF
+		create black_list hash:net hashsize 64
+		create white_list hash:net hashsize 64		
+		$(gen_tg_ip | sed -e "s/^/add black_list /")
+		$(gen_special_ip | sed -e "s/^/add white_list /")		
+EOF
 	if [ ! -z $ss_wan_black_ip ];then
 		ss_wan_black_ip=`dbus get ss_wan_black_ip|base64_decode|sed '/\#/d'`
 		echo_date 应用IP/CIDR黑名单
@@ -1076,21 +1122,7 @@ add_white_black_ip(){
 			ipset -! add black_list $ip >/dev/null 2>&1
 		done
 	fi
-	# white ip/cidr
-	#ip1=$(nvram get wan0_ipaddr | cut -d"." -f1,2)
-	#ip1=`cat /etc/config/pppoe|grep localip | awk '{print $4}'| cut -d"." -f1,2`
-	[ ! -z "$ss_basic_server_ip" ] && SERVER_IP=$ss_basic_server_ip || SERVER_IP=""
-	IFIP_DNS1=`echo $ISP_DNS1|grep -E "([0-9]{1,3}[\.]){3}[0-9]{1,3}|:"`
-	IFIP_DNS2=`echo $ISP_DNS2|grep -E "([0-9]{1,3}[\.]){3}[0-9]{1,3}|:"`
-	[ -n "$IFIP_DNS1" ] && ISP_DNS_a="$ISP_DNS1" || ISP_DNS_a=""
-	[ -n "$IFIP_DNS2" ] && ISP_DNS_b="$ISP_DNS2" || ISP_DNS_b=""
-	
-	ip_lan="0.0.0.0/8 10.0.0.0/8 100.64.0.0/10 127.0.0.0/8 169.254.0.0/16 172.16.0.0/12 192.168.0.0/16 224.0.0.0/4 240.0.0.0/4 $SERVER_IP 223.5.5.5 223.6.6.6 114.114.114.114 114.114.115.115 1.2.4.8 210.2.4.8 112.124.47.27 114.215.126.16 180.76.76.76 119.29.29.29 $ISP_DNS_a $ISP_DNS_b"
-	for ip in $ip_lan
-	do
-		ipset -! add white_list $ip >/dev/null 2>&1
-	done
-	
+
 	if [ ! -z $ss_wan_white_ip ];then
 		ss_wan_white_ip=`echo $ss_wan_white_ip|base64_decode|sed '/\#/d'`
 		echo_date 应用IP/CIDR白名单
