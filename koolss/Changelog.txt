@@ -1,5 +1,8 @@
 Koolshare LEDE-X64 shadowsocks Changelog
 ==========================================
+2.1.8
+   - fix	回滚到2.1.6
+
 2.1.6
    - fix	优化性能
 
