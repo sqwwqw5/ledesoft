@@ -562,15 +562,15 @@
             "version": "0.7"
         }, 
         {
-            "build_date": "2018-10-18_22:12:40", 
-            "changelog": "", 
+            "build_date": "2018-10-19_21:00:25", 
+            "changelog": "启用后关闭一些功能", 
             "description": "无感知的透明防火墙", 
             "home_url": "Module_bridge.asp", 
-            "md5": "015f1b4ec95ad8600752f9ba76f3b196", 
+            "md5": "46550f4385a70832030d7b9a69ce159d", 
             "name": "bridge", 
             "tar_url": "bridge/bridge.tar.gz", 
             "title": "透明网桥", 
-            "version": "0.1"
+            "version": "0.2"
         }, 
         {
             "build_date": "2017-10-02_22:27:11", 
