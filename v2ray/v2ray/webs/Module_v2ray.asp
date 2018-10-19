@@ -578,7 +578,7 @@
 			get_run_status();
 			E("_v2ray_basic_status_foreign").innerHTML = "国外链接 - 提交中...暂停获取状态！";
 			E("_v2ray_basic_status_china").innerHTML = "国内链接 - 提交中...暂停获取状态！";
-			var paras_chk = ["enable", "gfwlist_update", "chnroute_update", "cdn_update"];
+			var paras_chk = ["enable", "dns_chromecast", "gfwlist_update", "chnroute_update", "cdn_update"];
 			var paras_inp = ["v2ray_acl_default_mode", "v2ray_dns_plan", "v2ray_dns_china", "v2ray_dns_china_user", "v2ray_dns_foreign_select", "v2ray_dns_foreign", "v2ray_dns_foreign_user", "v2ray_basic_rule_update", "v2ray_basic_rule_update_day", "v2ray_basic_rule_update_hr" ];
 			// collect data from checkbox
 			for (var i = 0; i < paras_chk.length; i++) {
@@ -867,6 +867,7 @@
 			<script type="text/javascript">
 				$('#v2ray_dns_pannel').forms([
 					{ title: 'DNS解析偏好', name:'v2ray_dns_plan',type:'select',options:[['1', '国内优先'], ['2', '国外优先']], value: dbus.v2ray_dns_plan || "2", suffix: '<lable id="_v2ray_dns_plan_txt"></lable>'},
+					{ title: 'chromecast支持 (接管局域网DNS解析)',  name:'v2ray_basic_dns_chromecast',type:'checkbox', value: dbus.v2ray_basic_dns_chromecast != 0, suffix: '<lable>此处强烈建议开启！</lable>' },
 					{ title: '选择国内DNS', multi: [
 						{ name: 'v2ray_dns_china',type:'select', options:option_dns_china, value: dbus.v2ray_dns_china || "1", suffix: ' &nbsp;&nbsp;' },
 						{ name: 'v2ray_dns_china_user', type: 'text', value: dbus.v2ray_dns_china_user }

@@ -1,9 +1,9 @@
 {
-"version":"1.5",
-"md5":"6cbe1fe69d398d76eb78500ae4cfd35c",
+"version":"1.6",
+"md5":"42dc78e5c06d25d5fa9f6b2256a0f13f",
 "home_url":"Module_v2ray.asp",
 "title":"V2Ray",
 "description":"模块化的代理软件包",
-"changelog":"修复BUG",
-"build_date":"2018-10-18_13:39:40"
+"changelog":"增加DNS劫持开关",
+"build_date":"2018-10-19_19:04:40"
 }
