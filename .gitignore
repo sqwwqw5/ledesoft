@@ -3,6 +3,7 @@ tunnel
 .lconfig.json.js
 .htaccess
 .user.ini
+backup.sh
 /homebridge/build
 /homeassistant/build
 /lnmp/build
