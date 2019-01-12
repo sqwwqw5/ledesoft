@@ -558,7 +558,7 @@ No part of this file may be used without permission.
 		<a href="#/soft-center.asp" class="btn" style="float:right;border-radius:3px;margin-right:5px;margin-top:0px;">返回</a>
 		</div>
 		<div class="content">
-			<span id="msg" class="col-sm-9" style="margin-top:10px;width:700px">koolproxy是一款高效的修改和过滤流量包的软件，用于保护未成年人健康上网，并且支持https和IPV6！</span>
+			<span id="msg" class="col" style="line-height:30px;width:700px">koolproxy是一款高效的修改和过滤流量包的软件，用于保护未成年人健康上网，并且支持https和IPV6！</span>
 		</div>	
 	</div>
 	<div class="box" style="margin-top: 0px;">
