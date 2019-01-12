@@ -14,9 +14,6 @@ wget https://kprule.com/koolproxy.txt
 wget https://kprule.com/daily.txt
 wget https://kprule.com/kp.dat
 wget https://kprule.com/user.txt
-wget https://kprule.com/easylistchina.txt
-wget https://kprule.com/chengfeng.txt
-wget https://kprule.com/fanboy.txt
 
 cd ../../../..
 # Check and include base
