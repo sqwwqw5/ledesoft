@@ -1,9 +1,9 @@
 {
 "version":"0.8.1",
-"md5":"a34a339cee5d21b7e590fb7aa6972ca6",
+"md5":"cdb1cc1ebe9cfc16dad6a80ab6e3abe9",
 "home_url":"Module_sgame.asp",
 "title":"游戏加速器",
 "description":"外服游戏解决方案",
 "changelog":"修复关闭后iptables残留",
-"build_date":"2019-01-14_23:24:40"
+"build_date":"2019-01-14_23:28:01"
 }
