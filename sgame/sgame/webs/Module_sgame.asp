@@ -578,11 +578,11 @@
 		}
 
 		function save(){
-			setTimeout("tabSelect('app5')", 500);
 			status_time = 999999990;
-			get_run_status();
+			setTimeout("tabSelect('app5')", 500);
+			//get_run_status();
 			E("_sgame_status").innerHTML = "提交中...暂停获取状态！";
-			//E("_sgame_status_ping").innerHTML = "提交中...暂停获取状态！";
+			E("_sgame_status_ping").innerHTML = "提交中...暂停获取状态！";
 			var paras_chk = ["enable", "cron", "proxy"];
 			var paras_inp = ["sgame_acl_default_mode", "sgame_udp2raw_server", "sgame_udp2raw_port", "sgame_udp2raw_mode", "sgame_basic_server", "sgame_basic_port", "sgame_basic_subnet",  "sgame_basic_cron_enablehour", "sgame_basic_cron_disablehour", "sgame_basic_cron_enableminute", "sgame_basic_cron_disableminute"];
 			// collect data from checkbox

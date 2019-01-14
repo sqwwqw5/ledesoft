@@ -66,15 +66,15 @@
             "version": "0.5"
         }, 
         {
-            "build_date": "2019-01-14_20:57:11", 
-            "changelog": "增加代理设置", 
+            "build_date": "2019-01-14_23:24:40", 
+            "changelog": "修复关闭后iptables残留", 
             "description": "外服游戏解决方案", 
             "home_url": "Module_sgame.asp", 
-            "md5": "be888e0971e311e18619ae3dad7ad83b", 
+            "md5": "a34a339cee5d21b7e590fb7aa6972ca6", 
             "name": "sgame", 
             "tar_url": "sgame/sgame.tar.gz", 
             "title": "游戏加速器", 
-            "version": "0.8"
+            "version": "0.8.1"
         }, 
         {
             "build_date": "2018-09-23_18:26:03", 
