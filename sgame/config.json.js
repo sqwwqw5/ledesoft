@@ -1,9 +1,9 @@
 {
-"version":"0.7",
-"md5":"cf4a0f8100feb40f98688777aefe366f",
+"version":"0.8",
+"md5":"be888e0971e311e18619ae3dad7ad83b",
 "home_url":"Module_sgame.asp",
 "title":"游戏加速器",
 "description":"外服游戏解决方案",
-"changelog":"升级bin",
-"build_date":"2018-12-30_01:09:57"
+"changelog":"增加代理设置",
+"build_date":"2019-01-14_20:57:11"
 }
