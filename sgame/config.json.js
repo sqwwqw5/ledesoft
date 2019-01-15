@@ -1,9 +1,9 @@
 {
-"version":"0.7",
-"md5":"cf4a0f8100feb40f98688777aefe366f",
+"version":"0.8.2",
+"md5":"a527a413ae88a96df3de827b8c47119f",
 "home_url":"Module_sgame.asp",
 "title":"游戏加速器",
 "description":"外服游戏解决方案",
-"changelog":"升级bin",
-"build_date":"2018-12-30_01:09:57"
+"changelog":"修复白名单模式",
+"build_date":"2019-01-15_12:45:08"
 }

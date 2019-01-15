@@ -371,14 +371,15 @@ No part of this file may be used without permission.
 		function save(){
 			var KP = document.getElementById('_koolproxy_enable').checked==false;			
 			var R1 = document.getElementById('_koolproxy_oline_rules').checked==false;
-			var R2 = document.getElementById('_koolproxy_easylist_rules').checked==false;
-			var R3 = document.getElementById('_koolproxy_abx_rules').checked==false;
-			var R4 = document.getElementById('_koolproxy_fanboy_rules').checked==false;
+//			var R2 = document.getElementById('_koolproxy_easylist_rules').checked==false;
+//			var R3 = document.getElementById('_koolproxy_abx_rules').checked==false;
+//			var R4 = document.getElementById('_koolproxy_fanboy_rules').checked==false;
 			var R5 = document.getElementById('_koolproxy_video_rules').checked==false;
 
 			if (KP){
 				
-			}else if(R1 && R2 && R3 && R4 && R5){
+//			}else if(R1 && R2 && R3 && R4 && R5){
+			}else if(R1 && R5){				
 				alert("请到【规则管理】勾选规则！");
 				return false;
 			}
@@ -396,9 +397,9 @@ No part of this file may be used without permission.
 //			dbus.koolproxy_reboot_inter_hour = E('_koolproxy_reboot_inter_hour').value;
 			dbus.koolproxy_oline_rules = E("_koolproxy_oline_rules").checked ? "1" : "0";
 			dbus.koolproxy_video_rules = E("_koolproxy_video_rules").checked ? "1" : "0";
-			dbus.koolproxy_easylist_rules = E("_koolproxy_easylist_rules").checked ? "1" : "0";
-			dbus.koolproxy_abx_rules = E("_koolproxy_abx_rules").checked ? "1" : "0";
-			dbus.koolproxy_fanboy_rules = E("_koolproxy_fanboy_rules").checked ? "1" : "0";
+//			dbus.koolproxy_easylist_rules = E("_koolproxy_easylist_rules").checked ? "1" : "0";
+//			dbus.koolproxy_abx_rules = E("_koolproxy_abx_rules").checked ? "1" : "0";
+//			dbus.koolproxy_fanboy_rules = E("_koolproxy_fanboy_rules").checked ? "1" : "0";
 			dbus["koolproxy_custom_rule"] = Base64.encode(document.getElementById("_koolproxy_custom_rule").value);
 			// collect data from acl pannel
 			var data2 = kpacl.getAllData();
@@ -557,7 +558,7 @@ No part of this file may be used without permission.
 		<a href="#/soft-center.asp" class="btn" style="float:right;border-radius:3px;margin-right:5px;margin-top:0px;">返回</a>
 		</div>
 		<div class="content">
-			<span id="msg" class="col-sm-9" style="margin-top:10px;width:700px">koolproxy是一款高效的修改和过滤流量包的软件，用于保护未成年人健康上网，并且支持https和IPV6！</span>
+			<span id="msg" class="col" style="line-height:30px;width:700px">koolproxy是一款高效的修改和过滤流量包的软件，用于保护未成年人健康上网，并且支持https和IPV6！</span>
 		</div>	
 	</div>
 	<div class="box" style="margin-top: 0px;">
@@ -589,6 +590,7 @@ No part of this file may be used without permission.
 		<li><a href="javascript:void(0);" onclick="tabSelect('app7');" id="app7-server1-rz-tab"><i class="icon-info"></i> 日志信息</a></li>
 	</ul>
 	<div class="box boxr1" style="margin-top: 0px;">
+		<div class="heading"></div>
 		<div class="content">
 			<div id="identification" class="section"></div>
 			<script type="text/javascript">
@@ -628,7 +630,7 @@ No part of this file may be used without permission.
 	</div>
 	</div>	
 	<div class="box boxr3">
-		<div class="heading">访问控制</div>
+		<div class="heading"></div>
 		<div class="content">
 			<div class="tabContent">	
 				<table class="line-table" cellspacing=1 id="ctrl-grid"></table>
@@ -648,22 +650,21 @@ No part of this file may be used without permission.
 			<br><hr>
 		</div>
 	</div>
-	<div class="box boxr4">
-		<div class="heading">自定义规则</div>
-		<div class="content">
+	<div class="box boxr4" id="kp_user_rules" style="margin-top: 0px;">
+		<div id="kp_user_pannel" class="content">
 			<div class="tabContent">
-			<div class="section user_rule content"></div>
+			<div class="section content">
 			<script type="text/javascript">
 				y = Math.floor(docu.getViewSize().height * 0.75);
 				s = 'height:' + ((y > 300) ? y : 300) + 'px;display:block';
-				$('.section.user_rule').append('<textarea class="as-script" name="koolproxy_custom_rule" id="_koolproxy_custom_rule" wrap="off" style="max-width:100%; min-width: 100%; margin: 0; ' + s + '" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>');
+				$('#kp_user_pannel').append('<textarea class="as-script" name="koolproxy_custom_rule" id="_koolproxy_custom_rule" wrap="off" style="max-width:100%; min-width: 100%; margin: 0; ' + s + '" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>');
 			</script>
 		</div>
 			</div>
 		</div>
 	</div>
 	<div class="box boxr5">
-		<div class="heading">证书管理</div>
+		<div class="heading"></div>
 		<div class="content">
 			<div id="kp_certificate_management" class="section"></div>
 			<script type="text/javascript">
@@ -675,7 +676,7 @@ No part of this file may be used without permission.
 		</div>
 	</div>
 	<div class="box boxr6">
-		<div class="heading">规则管理</div>
+		<div class="heading"></div>
 		<div class="content">
 			<div id="kp_rules_pannel" class="section"></div>
 			<script type="text/javascript">
@@ -686,10 +687,10 @@ No part of this file may be used without permission.
 						{ name: 'koolproxy_oline_rules',type:'checkbox',value: dbus.koolproxy_oline_rules == '1', suffix: '<lable id="_kp_oline_rules">绿坝规则</lable>&nbsp;&nbsp;' }
 					]},
 					{ title: '第三方规则订阅', multi: [
-						{ name: 'koolproxy_video_rules',type:'checkbox',value: dbus.koolproxy_video_rules == '1', suffix: '<lable id="_kp_video_rules">视频规则</lable>&nbsp;&nbsp;' },						
-						{ name: 'koolproxy_easylist_rules',type:'checkbox',value: dbus.koolproxy_easylist_rules == '1', suffix: '<lable id="_kp_easylist">ABP规则</lable>&nbsp;&nbsp;' },
-						{ name: 'koolproxy_abx_rules',type:'checkbox',value: dbus.koolproxy_abx_rules == '1', suffix: '<lable id="_kp_abx">乘风规则</lable>&nbsp;&nbsp;' },
-						{ name: 'koolproxy_fanboy_rules',type:'checkbox',value: dbus.koolproxy_fanboy_rules == '1', suffix: '<lable id="_kp_fanboy">Fanboy规则</lable>&nbsp;&nbsp;' }
+						{ name: 'koolproxy_video_rules',type:'checkbox',value: dbus.koolproxy_video_rules == '1', suffix: '<lable id="_kp_video_rules">视频规则</lable>&nbsp;&nbsp;' }					
+//						{ name: 'koolproxy_easylist_rules',type:'checkbox',value: dbus.koolproxy_easylist_rules == '1', suffix: '<lable id="_kp_easylist">ABP规则</lable>&nbsp;&nbsp;' },
+//						{ name: 'koolproxy_abx_rules',type:'checkbox',value: dbus.koolproxy_abx_rules == '1', suffix: '<lable id="_kp_abx">乘风规则</lable>&nbsp;&nbsp;' },
+//						{ name: 'koolproxy_fanboy_rules',type:'checkbox',value: dbus.koolproxy_fanboy_rules == '1', suffix: '<lable id="_kp_fanboy">Fanboy规则</lable>&nbsp;&nbsp;' }
 					]}	
 				]);
 			</script>
@@ -707,14 +708,13 @@ No part of this file may be used without permission.
 			<br><hr>			
 		</div>
 	</div>
-	<div class="box boxr7">
-		<div class="heading">状态日志</div>
-		<div class="content">
-			<div class="section kp_log content">
+	<div class="box boxr7" id="kp_log_tab" style="margin-top: 0px;">
+		<div id="kp_log_pannel" class="content">
+			<div class="section content">
 				<script type="text/javascript">
 					y = Math.floor(docu.getViewSize().height * 0.55);
 					s = 'height:' + ((y > 300) ? y : 300) + 'px;display:block';
-					$('.section.kp_log').append('<textarea class="as-script" name="koolproxy_log" id="_koolproxy_log" wrap="off" style="max-width:100%; min-width: 100%; margin: 0; ' + s + '" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>');
+					$('#kp_log_pannel').append('<textarea class="as-script" name="koolproxy_log" id="_koolproxy_log" wrap="off" style="max-width:100%; min-width: 100%; margin: 0; ' + s + '" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>');
 				</script>
 			</div>
 		</div>

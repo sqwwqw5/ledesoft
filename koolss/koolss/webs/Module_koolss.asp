@@ -2006,14 +2006,14 @@
 				type: 2,
 				shade: .7,
 				scrollbar: 0,
-				title: '国内外分流信息:ip111.cn',
-				area: ['750px', '490px'],
+				title: '国内外分流信息',
+				area: ['780px', '450px'],
 				fixed: false, //不固定
 				maxmin: true,
 				shadeClose: 1,
 				id: 'LAY_layuipro',
 				btnAlign: 'c',
-				content: ['http://ip111.cn/', 'no'],
+				content: ['https://ip.koolcenter.com/get-ip.html', 'no'],
 			});
 		}
 

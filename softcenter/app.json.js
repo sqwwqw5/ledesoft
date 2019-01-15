@@ -66,15 +66,15 @@
             "version": "0.5"
         }, 
         {
-            "build_date": "2018-12-30_01:09:57", 
-            "changelog": "升级bin", 
+            "build_date": "2019-01-15_12:45:08", 
+            "changelog": "修复白名单模式", 
             "description": "外服游戏解决方案", 
             "home_url": "Module_sgame.asp", 
-            "md5": "cf4a0f8100feb40f98688777aefe366f", 
+            "md5": "a527a413ae88a96df3de827b8c47119f", 
             "name": "sgame", 
             "tar_url": "sgame/sgame.tar.gz", 
             "title": "游戏加速器", 
-            "version": "0.7"
+            "version": "0.8.2"
         }, 
         {
             "build_date": "2018-09-23_18:26:03", 
@@ -235,26 +235,26 @@
             "version": "1.0"
         }, 
         {
-            "build_date": "2018-12-15_23:08:22", 
-            "changelog": "修复BUG", 
+            "build_date": "2019-01-12_21:30:21", 
+            "changelog": "修正界面样式", 
             "description": "听说KP和软路由更搭哦~", 
             "home_url": "Module_koolproxy.asp", 
-            "md5": "0fe2da2ef9a9ebf010498a95f5a325e2", 
+            "md5": "06ad432400ca34919b105a7621372ec6", 
             "name": "koolproxy", 
             "tar_url": "koolproxy/koolproxy.tar.gz", 
             "title": "koolproxy", 
-            "version": "3.8.5"
+            "version": "3.8.5.1"
         }, 
         {
-            "build_date": "2019-01-11_14:53:51", 
-            "changelog": "增加cloudflare", 
+            "build_date": "2019-01-12_11:37:17", 
+            "changelog": "修复导致ui错位的bug", 
             "description": "动态域名解析工具", 
             "home_url": "Module_koolddns.asp", 
-            "md5": "e96af5f3425281a956c69fdded9691f8", 
+            "md5": "4f3c9ddd36e319db8822e42c2547e067", 
             "name": "koolddns", 
             "tar_url": "koolddns/koolddns.tar.gz", 
             "title": "Koolddns", 
-            "version": "0.6"
+            "version": "0.6.1"
         }, 
         {
             "build_date": "2018-05-12_14:47:04", 
@@ -301,15 +301,15 @@
             "version": "1.0.8"
         }, 
         {
-            "build_date": "2018-11-22_20:56:35", 
-            "changelog": "修复nat转发规则未添加", 
+            "build_date": "2019-01-15_12:40:39", 
+            "changelog": "增加模式", 
             "description": "高效的次世代VPN", 
             "home_url": "Module_wireguard.asp", 
-            "md5": "6f53ff6cf2c3d96cdc7eb90e3707fcb1", 
+            "md5": "e9d5adb2e65788b379e643261c4de05a", 
             "name": "wireguard", 
             "tar_url": "wireguard/wireguard.tar.gz", 
             "title": "WireGuard", 
-            "version": "0.2"
+            "version": "0.3"
         }, 
         {
             "build_date": "2017-12-19_20:30:49", 

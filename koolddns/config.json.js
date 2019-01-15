@@ -1,9 +1,9 @@
 {
-"version":"0.6",
-"md5":"e96af5f3425281a956c69fdded9691f8",
+"version":"0.6.1",
+"md5":"4f3c9ddd36e319db8822e42c2547e067",
 "home_url":"Module_koolddns.asp",
 "title":"Koolddns",
 "description":"动态域名解析工具",
-"changelog":"增加cloudflare",
-"build_date":"2019-01-11_14:53:51"
+"changelog":"修复导致ui错位的bug",
+"build_date":"2019-01-12_11:37:17"
 }
