@@ -1,11 +1,11 @@
 #!/bin/sh
 
 MODULE=wireguard
-VERSION=0.2
+VERSION=0.3
 TITLE="WireGuard"
 DESCRIPTION="高效的次世代VPN"
 HOME_URL=Module_wireguard.asp
-CHANGELOG="修复nat转发规则未添加"
+CHANGELOG="增加模式"
 
 # Check and include base
 DIR="$( cd "$( dirname "$BASH_SOURCE[0]" )" && pwd )"

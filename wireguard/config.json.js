@@ -1,9 +1,9 @@
 {
-"version":"0.2",
-"md5":"6f53ff6cf2c3d96cdc7eb90e3707fcb1",
+"version":"0.3",
+"md5":"d417ed3154fb4f15ad2415fcbd438c48",
 "home_url":"Module_wireguard.asp",
 "title":"WireGuard",
 "description":"高效的次世代VPN",
-"changelog":"修复nat转发规则未添加",
-"build_date":"2018-11-22_20:56:35"
+"changelog":"增加模式",
+"build_date":"2019-01-15_12:00:36"
 }

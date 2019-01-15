@@ -301,15 +301,15 @@
             "version": "1.0.8"
         }, 
         {
-            "build_date": "2018-11-22_20:56:35", 
-            "changelog": "修复nat转发规则未添加", 
+            "build_date": "2019-01-15_12:00:36", 
+            "changelog": "增加模式", 
             "description": "高效的次世代VPN", 
             "home_url": "Module_wireguard.asp", 
-            "md5": "6f53ff6cf2c3d96cdc7eb90e3707fcb1", 
+            "md5": "d417ed3154fb4f15ad2415fcbd438c48", 
             "name": "wireguard", 
             "tar_url": "wireguard/wireguard.tar.gz", 
             "title": "WireGuard", 
-            "version": "0.2"
+            "version": "0.3"
         }, 
         {
             "build_date": "2017-12-19_20:30:49", 
