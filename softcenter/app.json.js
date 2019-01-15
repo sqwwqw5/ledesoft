@@ -301,11 +301,11 @@
             "version": "1.0.8"
         }, 
         {
-            "build_date": "2019-01-15_12:00:36", 
+            "build_date": "2019-01-15_12:38:00", 
             "changelog": "增加模式", 
             "description": "高效的次世代VPN", 
             "home_url": "Module_wireguard.asp", 
-            "md5": "d417ed3154fb4f15ad2415fcbd438c48", 
+            "md5": "aa00595f91da682864b0b88ae6e6c866", 
             "name": "wireguard", 
             "tar_url": "wireguard/wireguard.tar.gz", 
             "title": "WireGuard", 

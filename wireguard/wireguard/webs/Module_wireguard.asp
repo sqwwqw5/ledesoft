@@ -1018,6 +1018,7 @@
 	<div class="heading"><a class="pull-right" data-toggle="tooltip" title="Hide/Show Notes" href="javascript:toggleVisibility('notes');"><span id="sesdivnotesshowhide"><i class="icon-chevron-up"></i></span></a></div>
 	<div class="section content" id="sesdivnotes" style="display:">
 			<li> 所有模式均支持UDP代理</li>
+			<li> MAC暂不可用，请使用IP设置访问控制</li>
 	</div>
 	</div>
 	<!-- ------------------ 附加设置 --------------------- -->
